@@ -22,8 +22,12 @@ class No_Atual:
         self.x_atual = x_inicial
         self.y_atual = y_inicial
         self.caminho_atual.append((x_inicial,y_inicial))
+        nos_encontrados.append(self)
+
+    def add_proximos_nos(self,nos_encontrados,nos_proibidos):
+        nos_encontrados.remove(self)
         
-    def add_proximos_nos(self,nos_encontrados,nos_proibidos)
+   
 
 
 # Essa função serve para calcular os pesos 
