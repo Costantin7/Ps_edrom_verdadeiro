@@ -3,31 +3,121 @@
 # AREAS DE INTERESSE: Estruturas e Movimento
 
 import math
+# array de classes (2)
+nos_atuais = []
 
-nos_encontrados = []
-
+# array de tuplas (3)
 nos_proibidos = []
 
  
 # Classe de nós 
 class No_Atual:
-    def __init__(self):
-        self.x_atual = 0
-        self.y_atual = 0
-        self.caminho_atual = []
-        self.custo_atual = 0
-        self.finalizado = False
-
-    def primeiro_caminho(self, x_inicial, y_inicial): 
-        self.x_atual = x_inicial
-        self.y_atual = y_inicial
-        self.caminho_atual.append((x_inicial,y_inicial))
-        nos_encontrados.append(self)
-
-    def add_proximos_nos(self,nos_encontrados,nos_proibidos):
-        nos_encontrados.remove(self)
+    def __init__(self,x_atual,y_atual,caminho_atual,custo_atual):
+        self.x_atual = x_atual
+        self.y_atual = y_atual
+        self.caminho_atual = caminho_atual
+        self.custo_atual = custo_atual
+        self.caminho_atual.append((x_atual,y_atual))
         
-   
+
+
+    def add_no_atual(self):
+        nos_atuais.append(self)
+
+    def add_proximos_nos(self,nos_atuais,nos_proibidos,x_objetivo,y_objetivo):
+
+        nos_proibidos.append((self.x_atual,self.y_atual))
+
+    
+        if((self.x_atual + 1, self.y_atual) not in nos_proibidos):
+            x_temporario = self.x_atual + 1
+            y_temporario = self.y_atual
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+        if((self.x_atual + 1, self.y_atual + 1) not in nos_proibidos):
+            x_temporario = self.x_atual + 1
+            y_temporario = self.y_atual + 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+    
+        if((self.x_atual , self.y_atual + 1) not in nos_proibidos):
+            x_temporario = self.x_atual 
+            y_temporario = self.y_atual + 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+
+        if((self.x_atual - 1 , self.y_atual + 1) not in nos_proibidos):
+            x_temporario = self.x_atual - 1
+            y_temporario = self.y_atual + 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+
+        if((self.x_atual - 1 , self.y_atual ) not in nos_proibidos):
+            x_temporario = self.x_atual - 1
+            y_temporario = self.y_atual 
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+
+        if((self.x_atual - 1 , self.y_atual - 1) not in nos_proibidos):
+            x_temporario = self.x_atual - 1
+            y_temporario = self.y_atual - 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+
+
+        if((self.x_atual - 1 , self.y_atual - 1) not in nos_proibidos):
+            x_temporario = self.x_atual - 1
+            y_temporario = self.y_atual - 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))            
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual ()
+ 
+
+        if((self.x_atual  , self.y_atual - 1) not in nos_proibidos):
+            x_temporario = self.x_atual 
+            y_temporario = self.y_atual - 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual ()
+  
+
+        if((self.x_atual + 1  , self.y_atual - 1) not in nos_proibidos):
+            x_temporario = self.x_atual + 1
+            y_temporario = self.y_atual - 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            caminho_temporario.append((x_temporario,y_temporario))           
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual ()
+  
+                
 
 
 # Essa função serve para calcular os pesos 
