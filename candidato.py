@@ -4,7 +4,30 @@
 
 import math
 
-def func_custo(x_analisado, y_analisado, x_objetivo, y_objetivo):
+nos_encontrados = []
+
+nos_proibidos = []
+
+ 
+# Classe de nós 
+class No_Atual:
+    def __init__(self):
+        self.x_atual = 0
+        self.y_atual = 0
+        self.caminho_atual = []
+        self.custo_atual = 0
+        self.finalizado = False
+
+    def primeiro_caminho(self, x_inicial, y_inicial): 
+        self.x_atual = x_inicial
+        self.y_atual = y_inicial
+        self.caminho_atual.append((x_inicial,y_inicial))
+        
+    def add_proximos_nos(self,nos_encontrados,nos_proibidos)
+
+
+# Essa função serve para calcular os pesos 
+def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo):
 
     custo_distancia = math.sqrt( math.pow(x_analisado - x_objetivo,2) + math.pow(y_analisado - y_objetivo,2))
     custo_movimento = 0
@@ -12,16 +35,29 @@ def func_custo(x_analisado, y_analisado, x_objetivo, y_objetivo):
     custo = custo_distancia + custo_movimento + custo_proximidade_obstaculo
     return custo
 
+
+
+
+
+
+# ==============================================================================================================
+# Função principal
 def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altura_grid, tem_bola=False):
 
-    
 
+    #setup -------------------------------------------------
 
-    caminho_exemplo = []
-    x_atual, y_atual = pos_inicial
+    x_inicial, y_inicial = pos_inicial
+    # ADD obstaculos a nós poribidos 
+    nos_proibidos.append(obstaculos)
+    No = No_Atual
+    No.primeiro_caminho(x_inicial, y_inicial)
+
+    #-------------------------------------------------
 
  
-            
+
+
 
     # caminho_exemplo.append((proximo_x, y_atual))
     return caminho_exemplo
@@ -42,3 +78,6 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
     #           A lista deve começar com o próximo passo após a pos_inicial e terminar
     #           na pos_objetivo. Se nenhum caminho for encontrado, retorna uma lista vazia.
     #           Exemplo de retorno: [(1, 2), (1, 3), (2, 3)]
+
+    # caminhos_testados.sort(key=lambda c: c.custo_atual)
+    #nos_proibidos.append(obstaculos)
