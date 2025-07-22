@@ -4,16 +4,18 @@
 
 import math
 
-nivel1=1
-nivel2=1
-nivel3=1
-bola=False 
 
+#=================================================================
+
+# Globais importantes
+
+bola=False 
 # array de classes 
 nos_atuais = []
 
 # array de tuplas 
 nos_proibidos = []
+nos_perigosos = []
 
 # Classe de nós 
 class No_Atual:
@@ -125,7 +127,7 @@ class No_Atual:
                 
         nos_atuais.remove(self)
 
-# Essa função serve para calcular os pesos 
+# Essa função serve para calcular os pesos instantaneos 
 def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanca, tipo, tem_bola):
 
     
@@ -139,19 +141,18 @@ def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanc
     reta = 1
     diagonal = 1.42
     peso_da_bola = 2
-    #logica -----
+    custo_proximidade_obs=2
+
+    #logica --------------
 
     if(tem_bola == False):
         peso_bola = 1
-    
     if(tem_bola == True):
-       peso_bola = peso_da_bola
-
+       peso_bola = peso_da_bola 
 
 
     if(tipo == 1):
         custo_tipo = reta 
-    
     if(tipo == 2):
         custo_tipo = diagonal
 
@@ -166,7 +167,10 @@ def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanc
     elif(mudanca == 4): # 180
         custo_movimento = graus180 
 
-    custo = custo_tipo + custo_movimento * peso_bola + custo_proximidade_obstaculo * peso_bola
+    if((x_analisado, y_analisado) in nos_perigosos):
+        custo_proximidade_obstaculo = custo_proximidade_obs
+
+    custo = custo_tipo + custo_movimento * peso_bola + custo_proximidade_obstaculo * peso_bola 
     return custo
 
 
@@ -219,16 +223,21 @@ def func_mudou_direção(caminho, direcao_antiga):
     else:
         return 0
 
-    
 
 
 
-
-
-
-
-
-
+def gerar_nos_perigosos(obstaculos):
+    for obs in obstaculos:
+        x_temp,y_temp = obs
+        nos_perigosos.append(( x_temp + 1 , y_temp))
+        nos_perigosos.append(( x_temp + 1 , y_temp + 1))
+        nos_perigosos.append(( x_temp, y_temp + 1 ))
+        nos_perigosos.append(( x_temp - 1 , y_temp +1 ))
+        nos_perigosos.append(( x_temp - 1 , y_temp ))
+        nos_perigosos.append(( x_temp - 1, y_temp - 1))
+        nos_perigosos.append(( x_temp , y_temp - 1 ))
+        nos_perigosos.append(( x_temp + 1, y_temp - 1 ))
+    return 0
 
 
 # ==============================================================================================================
@@ -239,7 +248,8 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
     #setup -------------------------------------------------
     nos_atuais.clear()
     nos_proibidos.clear()
-
+    nos_perigosos.clear()
+    obs=obstaculos
     x_max = largura_grid
     y_max = altura_grid
     x_inicial, y_inicial = pos_inicial
@@ -250,7 +260,7 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
     No.add_no_atual()
     nos_atuais.sort(key=lambda c: c.custo_atual)
     caminho_otimo = nos_atuais[0]
-
+    gerar_nos_perigosos(obs)
 
     #-------------------------------------------------
 
@@ -269,22 +279,3 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
         return []
     return caminho_otimo.caminho_atual
 
-
-    # Args:
-    #     pos_inicial (tuple): A posição (x, y) inicial do robô.
-    #     pos_objetivo (tuple): A posição (x, y) do objetivo (bola ou gol).
-    #     obstaculos (list): Uma lista de tuplas (x, y) com as posições dos obstáculos.
-    #     largura_grid (int): A largura do campo em células.
-    #     altura_grid (int): A altura do campo em células.
-    #     tem_bola (bool): Um booleano que indica o estado do robô.
-    #                      True se o robô está com a bola, False caso contrário.
-    #                      Este parâmetro é essencial para o Nível 2 do desafio.
-
-    # Returns:
-    #     list: Uma lista de tuplas (x, y) representando o caminho do início ao fim.
-    #           A lista deve começar com o próximo passo após a pos_inicial e terminar
-    #           na pos_objetivo. Se nenhum caminho for encontrado, retorna uma lista vazia.
-    #           Exemplo de retorno: [(1, 2), (1, 3), (2, 3)]
-
-    # caminhos_testados.sort(key=lambda c: c.custo_atual)
-    #nos_proibidos.append(obstaculos)
