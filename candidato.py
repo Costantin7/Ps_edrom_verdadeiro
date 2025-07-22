@@ -4,16 +4,15 @@
 
 import math
 
-
 nivel1=1
 nivel2=1
 nivel3=1
+bola=False 
 
-
-# array de classes (2)
+# array de classes 
 nos_atuais = []
 
-# array de tuplas (3)
+# array de tuplas 
 nos_proibidos = []
 
 # Classe de nós 
@@ -37,7 +36,7 @@ class No_Atual:
         if((self.x_atual + 1, self.y_atual) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual <= y_max ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,1),1)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,1),1,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario =  custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -48,7 +47,7 @@ class No_Atual:
         if((self.x_atual , self.y_atual + 1) not in nos_proibidos and self.x_atual <= x_max and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual 
             y_temporario = self.y_atual + 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,3),1)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,3),1,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -59,7 +58,7 @@ class No_Atual:
         if((self.x_atual - 1 , self.y_atual ) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual <= y_max ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual 
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,5),1)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,5),1,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -70,7 +69,7 @@ class No_Atual:
         if((self.x_atual  , self.y_atual - 1) not in nos_proibidos and self.x_atual <= x_max and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual 
             y_temporario = self.y_atual - 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,7),1)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,7),1,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -81,7 +80,7 @@ class No_Atual:
         if((self.x_atual + 1, self.y_atual + 1) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual + 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,2),2)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,2),2,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -92,7 +91,7 @@ class No_Atual:
         if((self.x_atual - 1 , self.y_atual + 1) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual + 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,4),2)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,4),2,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -103,7 +102,7 @@ class No_Atual:
         if((self.x_atual - 1 , self.y_atual - 1) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual - 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,6),2)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,6),2,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -114,7 +113,7 @@ class No_Atual:
         if((self.x_atual + 1  , self.y_atual - 1) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual - 1
-            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,8),2)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,8),2,bola)
             custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
             custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
@@ -127,7 +126,7 @@ class No_Atual:
         nos_atuais.remove(self)
 
 # Essa função serve para calcular os pesos 
-def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanca, tipo):
+def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanca, tipo, tem_bola):
 
     
     #Parametros para ajuste fino
@@ -139,7 +138,16 @@ def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanc
     custo_proximidade_obstaculo = 0
     reta = 1
     diagonal = 1.42
+    peso_da_bola = 2
     #logica -----
+
+    if(tem_bola == False):
+        peso_bola = 1
+    
+    if(tem_bola == True):
+       peso_bola = peso_da_bola
+
+
 
     if(tipo == 1):
         custo_tipo = reta 
@@ -148,17 +156,17 @@ def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanc
         custo_tipo = diagonal
 
     if(mudanca == 0):# linha reta
-        custo_movimento = linha_reta
+        custo_movimento = linha_reta 
     elif(mudanca == 1 or mudanca == 7):# linha diagonal proxima
-        custo_movimento = curva_pequena
+        custo_movimento = curva_pequena 
     elif(mudanca == 2 or mudanca == 6):# 90 gruas
-        custo_movimento = graus90
+        custo_movimento = graus90 
     elif(mudanca == 3 or mudanca == 5):# anti diagonal 
-        custo_movimento = curva_antidiagonal
+        custo_movimento = curva_antidiagonal 
     elif(mudanca == 4): # 180
-        custo_movimento = graus180
+        custo_movimento = graus180 
 
-    custo = custo_tipo + custo_movimento + custo_proximidade_obstaculo
+    custo = custo_tipo + custo_movimento * peso_bola + custo_proximidade_obstaculo * peso_bola
     return custo
 
 
@@ -247,20 +255,17 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
     #-------------------------------------------------
 
     while len(nos_atuais) > 0:
+        bola = tem_bola
         nos_atuais.sort(key=lambda c: c.custo_atual)
         caminho_otimo = nos_atuais[0] 
 
-        
         if caminho_otimo.testar_no_atual() == pos_objetivo: 
             break 
-
 
         caminho_otimo.add_proximos_nos(nos_atuais, nos_proibidos, x_objetivo, y_objetivo,x_max,y_max)
     
 
-
-
-    if not nos_atuais: # Se a lista estiver vazia, não achou caminho
+    if not nos_atuais: 
         return []
     return caminho_otimo.caminho_atual
 
