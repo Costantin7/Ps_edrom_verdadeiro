@@ -18,10 +18,11 @@ nos_proibidos = []
 
 # Classe de nós 
 class No_Atual:
-    def __init__(self,x_atual,y_atual,caminho_atual,custo_atual):
+    def __init__(self,x_atual,y_atual,caminho_atual,custo_acumulativo,custo_atual):
         self.x_atual = x_atual
         self.y_atual = y_atual
         self.caminho_atual = caminho_atual
+        self.custo_acumulativo = custo_acumulativo
         self.custo_atual = custo_atual
         self.caminho_atual.append((x_atual,y_atual))
         
@@ -33,130 +34,137 @@ class No_Atual:
 
     def add_proximos_nos(self,nos_atuais,nos_proibidos,x_objetivo,y_objetivo,x_max,y_max):
 
-        
-
-    
         if((self.x_atual + 1, self.y_atual) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual <= y_max ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,1))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,1),1)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario =  custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
 
-        if((self.x_atual , self.y_atual + 1) not in nos_proibidos and self.x_atual  <= x_max and self.y_atual + 1 < y_max ):
+        if((self.x_atual , self.y_atual + 1) not in nos_proibidos and self.x_atual <= x_max and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual 
             y_temporario = self.y_atual + 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,3))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,3),1)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
-
 
         if((self.x_atual - 1 , self.y_atual ) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual <= y_max ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual 
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,5))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,5),1)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
 
-
-        if((self.x_atual  , self.y_atual - 1) not in nos_proibidos and self.x_atual  <= x_max and self.y_atual - 1 >= 0 ):
+        if((self.x_atual  , self.y_atual - 1) not in nos_proibidos and self.x_atual <= x_max and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual 
             y_temporario = self.y_atual - 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,7))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,7),1)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
-        
 
         if((self.x_atual + 1, self.y_atual + 1) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual + 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,2))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,2),2)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
-
-    
-    
 
         if((self.x_atual - 1 , self.y_atual + 1) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual + 1 < y_max ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual + 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,4))
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,4),2)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
             caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
-
-
 
         if((self.x_atual - 1 , self.y_atual - 1) not in nos_proibidos and self.x_atual - 1 >= 0 and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual - 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,6))
-            caminho_temporario = self.caminho_atual.copy()           
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,6),2)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
-
 
         if((self.x_atual + 1  , self.y_atual - 1) not in nos_proibidos and self.x_atual + 1 < x_max and self.y_atual - 1 >= 0 ):
             x_temporario = self.x_atual + 1
             y_temporario = self.y_atual - 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,8))
-            caminho_temporario = self.caminho_atual.copy()         
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            custo_acumulativo_temporario = self.custo_acumulativo + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo, func_mudou_direção(self.caminho_atual,8),2)
+            custo_instantaneo_temporario = calcular_custo_distancia(x_temporario,y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            custo_temporario = custo_acumulativo_temporario + custo_instantaneo_temporario
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_acumulativo_temporario,custo_temporario)
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
+
+
                 
         nos_atuais.remove(self)
 
 # Essa função serve para calcular os pesos 
-def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanca):
-
-    #Parametros para ajuste fino
-
-    linha_reta = 0
-    diagonal = 0.4
-    graus90 = 0.8
-    antidiagonal = 1.2
-    graus180 = 1.4 
-
-
-
-    custo_distancia = math.sqrt( math.pow(x_analisado - x_objetivo,2) + math.pow(y_analisado - y_objetivo,2))
-    custo_proximidade_obstaculo = 0
+def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanca, tipo):
 
     
+    #Parametros para ajuste fino
+    linha_reta = 0
+    curva_pequena = 0.3
+    graus90 = 0.7
+    curva_antidiagonal = 1
+    graus180 = 1.5 
+    custo_proximidade_obstaculo = 0
+    reta = 1
+    diagonal = 1.42
+    #logica -----
+
+    if(tipo == 1):
+        custo_tipo = reta 
+    
+    if(tipo == 2):
+        custo_tipo = diagonal
+
     if(mudanca == 0):# linha reta
         custo_movimento = linha_reta
-
-    
     elif(mudanca == 1 or mudanca == 7):# linha diagonal proxima
-        custo_movimento = diagonal
-   
+        custo_movimento = curva_pequena
     elif(mudanca == 2 or mudanca == 6):# 90 gruas
         custo_movimento = graus90
-
     elif(mudanca == 3 or mudanca == 5):# anti diagonal 
-        custo_movimento = antidiagonal
-
+        custo_movimento = curva_antidiagonal
     elif(mudanca == 4): # 180
         custo_movimento = graus180
 
-
-
-
-    custo = custo_distancia + custo_movimento + custo_proximidade_obstaculo
+    custo = custo_tipo + custo_movimento + custo_proximidade_obstaculo
     return custo
+
+
+def calcular_custo_distancia(x_analisado, y_analisado, x_objetivo, y_objetivo):
+    custo_distancia = math.sqrt( math.pow(x_analisado - x_objetivo,2) + math.pow(y_analisado - y_objetivo,2))
+    return custo_distancia
 
 
 def func_mudou_direção(caminho, direcao_antiga):
@@ -229,8 +237,8 @@ def encontrar_caminho(pos_inicial, pos_objetivo, obstaculos, largura_grid, altur
     x_inicial, y_inicial = pos_inicial
     x_objetivo , y_objetivo = pos_objetivo
     nos_proibidos.extend(obstaculos)
-    caminho_inicial = []
-    No = No_Atual (x_inicial, y_inicial,caminho_inicial,0)
+    caminho_inicial = [] 
+    No = No_Atual (x_inicial, y_inicial,caminho_inicial,0,0)
     No.add_no_atual()
     nos_atuais.sort(key=lambda c: c.custo_atual)
     caminho_otimo = nos_atuais[0]
