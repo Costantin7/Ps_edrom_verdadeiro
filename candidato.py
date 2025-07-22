@@ -132,16 +132,21 @@ def func_calcular_custo(x_analisado, y_analisado, x_objetivo, y_objetivo, mudanc
 
     
     #Parametros para ajuste fino
-    linha_reta = 0
-    curva_pequena = 0.3
-    graus90 = 0.7
-    curva_antidiagonal = 1
-    graus180 = 1.5 
-    custo_proximidade_obstaculo = 0
-    reta = 1
-    diagonal = 1.42
-    peso_da_bola = 2
-    custo_proximidade_obs=2
+    
+    reta = 1 #nivel basico
+    diagonal = 1.42 #nivel basico
+    custo_proximidade_obstaculo = 0 #nivel basico
+
+    linha_reta = 0 #nivel 1
+    curva_pequena = 0.5 #nivel 1
+    graus90 = 0.9 #nivel 1
+    curva_antidiagonal = 1.2 #nivel 1
+    graus180 = 1.7 #nivel 1
+   
+
+    peso_da_bola = 2.0 #nivel 2
+
+    custo_proximidade_obs=2.4 #nivel 3
 
     #logica --------------
 
