@@ -39,16 +39,6 @@ class No_Atual:
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
 
-        if((self.x_atual + 1, self.y_atual + 1) not in nos_proibidos and self.x_atual + 1 <= x_max and self.y_atual + 1 <= y_max ):
-            x_temporario = self.x_atual + 1
-            y_temporario = self.y_atual + 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
-            caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
-            No_temporario.add_no_atual()
-            nos_proibidos.append((x_temporario,y_temporario))
-
-    
         if((self.x_atual , self.y_atual + 1) not in nos_proibidos and self.x_atual  <= x_max and self.y_atual + 1 <= y_max ):
             x_temporario = self.x_atual 
             y_temporario = self.y_atual + 1
@@ -58,14 +48,6 @@ class No_Atual:
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
 
-        if((self.x_atual - 1 , self.y_atual + 1) not in nos_proibidos and self.x_atual - 1 <= x_max and self.y_atual + 1 <= y_max ):
-            x_temporario = self.x_atual - 1
-            y_temporario = self.y_atual + 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
-            caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
-            No_temporario.add_no_atual()
-            nos_proibidos.append((x_temporario,y_temporario))
 
         if((self.x_atual - 1 , self.y_atual ) not in nos_proibidos and self.x_atual - 1 <= x_max and self.y_atual <= y_max ):
             x_temporario = self.x_atual - 1
@@ -77,6 +59,39 @@ class No_Atual:
             nos_proibidos.append((x_temporario,y_temporario))
 
 
+        if((self.x_atual  , self.y_atual - 1) not in nos_proibidos and self.x_atual  <= x_max and self.y_atual - 1 <= y_max ):
+            x_temporario = self.x_atual 
+            y_temporario = self.y_atual - 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+            nos_proibidos.append((x_temporario,y_temporario))
+        
+
+        if((self.x_atual + 1, self.y_atual + 1) not in nos_proibidos and self.x_atual + 1 <= x_max and self.y_atual + 1 <= y_max ):
+            x_temporario = self.x_atual + 1
+            y_temporario = self.y_atual + 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+            nos_proibidos.append((x_temporario,y_temporario))
+
+    
+    
+
+        if((self.x_atual - 1 , self.y_atual + 1) not in nos_proibidos and self.x_atual - 1 <= x_max and self.y_atual + 1 <= y_max ):
+            x_temporario = self.x_atual - 1
+            y_temporario = self.y_atual + 1
+            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
+            caminho_temporario = self.caminho_atual.copy()
+            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
+            No_temporario.add_no_atual()
+            nos_proibidos.append((x_temporario,y_temporario))
+
+
+
         if((self.x_atual - 1 , self.y_atual - 1) not in nos_proibidos and self.x_atual - 1 <= x_max and self.y_atual - 1 <= y_max ):
             x_temporario = self.x_atual - 1
             y_temporario = self.y_atual - 1
@@ -86,14 +101,6 @@ class No_Atual:
             No_temporario.add_no_atual()
             nos_proibidos.append((x_temporario,y_temporario))
 
-        if((self.x_atual  , self.y_atual - 1) not in nos_proibidos and self.x_atual  <= x_max and self.y_atual - 1 <= y_max ):
-            x_temporario = self.x_atual 
-            y_temporario = self.y_atual - 1
-            custo_temporario = self.custo_atual + func_calcular_custo(x_temporario, y_temporario, x_objetivo, y_objetivo)
-            caminho_temporario = self.caminho_atual.copy()
-            No_temporario = No_Atual(x_temporario,y_temporario,caminho_temporario,custo_temporario)
-            No_temporario.add_no_atual()
-            nos_proibidos.append((x_temporario,y_temporario))
 
         if((self.x_atual + 1  , self.y_atual - 1) not in nos_proibidos and self.x_atual + 1 <= x_max and self.y_atual - 1 <= y_max ):
             x_temporario = self.x_atual + 1
